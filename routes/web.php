@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HealthController;
+use App\Http\Controllers\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,5 @@ use App\Http\Controllers\HealthController;
 //});
 
 Route::get('/api/v1/health',[HealthController::class,'health']);
+
+Route::get('{locationId}/{memberId}',[IndexController::class,'referralRedirect'])->where('locationId','[0-9]+');
