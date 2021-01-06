@@ -14,4 +14,5 @@ class HttpStatusCodes
     const TOO_MANY_REQUESTS = 429;
     const TEMPORARY_REDIRECT = 302;
     const PERMANENT_REDIRECT = 301;
+    const NOT_ACCEPTABLE = 406;
 }

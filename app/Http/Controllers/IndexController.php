@@ -18,19 +18,19 @@ class IndexController extends Controller
 
     public function referralRedirect(int $locationId,string $memberId)
     {
-        $response = $this->maxxApiService->createReferralSession($memberId);
+        $response = $this->maxxApiService->createReferralSession($memberId,$locationId);
         $responseData = json_decode($response);
         $referralSessionKey = null;
-        if($response->status() == HttpStatusCodes::OK){
-            $referralSessionKey = $responseData->sessionKey;
-        }
-        switch($locationId){
-            case ReferralLocationIdentifiers::ELIXXI:
-                return Redirect('https://elixxi.com?referral_session_key='.$referralSessionKey,HttpStatusCodes::TEMPORARY_REDIRECT);
-            default:
+        switch($response->status()){
+            case HttpStatusCodes::OK:
+                $location = $responseData->location;
+                return Redirect($location,HttpStatusCodes::TEMPORARY_REDIRECT);
+            case HttpStatusCodes::NOT_ACCEPTABLE:
                 return response()->json([
-                    "msg"=>"invalid location identifier"
-                ],HttpStatusCodes::BAD_REQUEST);
+                    "msg"=>"location id is nvalid"
+                ],HttpStatusCodes::NOT_ACCEPTABLE);
+            default:
+                return Redirect("https://www.elixxi.com?referral_session_key_error=".$response->status(),HttpStatusCodes::TEMPORARY_REDIRECT);
         }
     }
 }
