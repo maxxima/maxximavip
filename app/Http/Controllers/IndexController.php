@@ -19,7 +19,7 @@ class IndexController extends Controller
 
     public function referralRedirect(int $locationId,string $memberId)
     {
-        $response = $this->maxxApiService->createReferralSession($memberId,$locationId,Request::ip());
+        $response = $this->maxxApiService->createReferralSession($memberId,$locationId);
         $responseData = json_decode($response);
         $referralSessionKey = null;
         switch($response->status()){
