@@ -8,7 +8,7 @@ use App\Constants\EnvironmentKeys;
 use App\Constants\HttpStatusCodes;
 use App\Constants\ReferralLocationIdentifiers;
 use App\Services\MaxxApiServiceInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -17,9 +17,9 @@ class IndexController extends Controller
         $this->maxxApiService = $maxxApiService;
     }
 
-    public function referralRedirect(int $locationId,string $memberId)
+    public function referralRedirect(Request $request, int $locationId,string $memberId)
     {
-        $response = $this->maxxApiService->createReferralSession($memberId,$locationId,Request::ip());
+        $response = $this->maxxApiService->createReferralSession($memberId,$locationId,$request->ip());
         $responseData = json_decode($response);
         $referralSessionKey = null;
         switch($response->status()){
