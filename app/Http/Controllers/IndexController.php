@@ -8,6 +8,7 @@ use App\Constants\EnvironmentKeys;
 use App\Constants\HttpStatusCodes;
 use App\Constants\ReferralLocationIdentifiers;
 use App\Services\MaxxApiServiceInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class IndexController extends Controller
 {
