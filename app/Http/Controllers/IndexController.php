@@ -18,7 +18,7 @@ class IndexController extends Controller
 
     public function referralRedirect(int $locationId,string $memberId)
     {
-        $response = $this->maxxApiService->createReferralSession($memberId,$locationId);
+        $response = $this->maxxApiService->createReferralSession($memberId,$locationId,Request::ip());
         $responseData = json_decode($response);
         $referralSessionKey = null;
         switch($response->status()){
@@ -27,7 +27,7 @@ class IndexController extends Controller
                 return Redirect($location,HttpStatusCodes::TEMPORARY_REDIRECT);
             case HttpStatusCodes::NOT_ACCEPTABLE:
                 return response()->json([
-                    "msg"=>"location id is nvalid"
+                    "msg"=>"location id is invalid"
                 ],HttpStatusCodes::NOT_ACCEPTABLE);
             default:
                 return Redirect("https://www.elixxi.com?referral_session_key_error=".$response->status(),HttpStatusCodes::TEMPORARY_REDIRECT);

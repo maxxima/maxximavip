@@ -6,5 +6,5 @@ namespace App\Services;
 
 interface MaxxApiServiceInterface
 {
-    public function createReferralSession(string $affiliateId,int $locationId);
+    public function createReferralSession(string $affiliateId,int $locationId, $originIpAddress);
 }
